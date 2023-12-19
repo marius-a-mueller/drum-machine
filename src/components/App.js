@@ -66,7 +66,9 @@ class App extends Component {
 
   handlePress(event, id) {
     this.setState({ display: btns[id].name });
-    new Audio(btns[id].audio).play();
+    let audio = document.getElementById("audio-" + event.target.id);
+    audio.play();
+    //new Audio(btns[id].audio).play();
   }
 
   render() {
