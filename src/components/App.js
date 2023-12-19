@@ -3,15 +3,42 @@ import Display from "./Display";
 import { Component } from "react";
 
 const btns = {
-  Q: "https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3",
-  W: "https://s3.amazonaws.com/freecodecamp/drums/Heater-2.mp3",
-  E: "https://s3.amazonaws.com/freecodecamp/drums/Heater-3.mp3",
-  A: "https://s3.amazonaws.com/freecodecamp/drums/Heater-4_1.mp3",
-  S: "https://s3.amazonaws.com/freecodecamp/drums/Heater-6.mp3",
-  D: "https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3",
-  Z: "https://s3.amazonaws.com/freecodecamp/drums/Kick_n_Hat.mp3",
-  X: "https://s3.amazonaws.com/freecodecamp/drums/RP4_KICK_1.mp3",
-  C: "https://s3.amazonaws.com/freecodecamp/drums/Cev_H2.mp3",
+  Q: {
+    audio: "https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3",
+    name: "Heater 1",
+  },
+  W: {
+    audio: "https://s3.amazonaws.com/freecodecamp/drums/Heater-2.mp3",
+    name: "Heater 2",
+  },
+  E: {
+    audio: "https://s3.amazonaws.com/freecodecamp/drums/Heater-3.mp3",
+    name: "Heater 3",
+  },
+  A: {
+    audio: "https://s3.amazonaws.com/freecodecamp/drums/Heater-4_1.mp3",
+    name: "Heater 4",
+  },
+  S: {
+    audio: "https://s3.amazonaws.com/freecodecamp/drums/Heater-6.mp3",
+    name: "Clap",
+  },
+  D: {
+    audio: "https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3",
+    name: "Open-HH",
+  },
+  Z: {
+    audio: "https://s3.amazonaws.com/freecodecamp/drums/Kick_n_Hat.mp3",
+    name: "Kick-n'-Hat",
+  },
+  X: {
+    audio: "https://s3.amazonaws.com/freecodecamp/drums/RP4_KICK_1.mp3",
+    name: "Kick",
+  },
+  C: {
+    audio: "https://s3.amazonaws.com/freecodecamp/drums/Cev_H2.mp3",
+    name: "Closed-HH",
+  },
 };
 
 class App extends Component {
@@ -38,19 +65,17 @@ class App extends Component {
   }
 
   handlePress(event, id) {
-    this.setState({ display: id });
-    let audio = document.getElementById("audio-" + event.target.id);
-    audio.play();
+    this.setState({ display: btns[id].name });
+    new Audio(btns[id].audio).play();
   }
 
   render() {
-    const drumpads = Array.from({ length: 9 }, (_, i) => (
-      <DrumPad
-        id={Object.keys(btns)[i]}
-        audio={Object.values(btns)[i]}
-        callback={this.handlePress}
-      />
-    ));
+    const drumpads = Object.keys(btns).map((key) => {
+      return (
+        <DrumPad id={key} audio={btns[key].audio} callback={this.handlePress} />
+      );
+    });
+
     return (
       <div className="w-screen h-screen flex justify-center items-center bg-violet-300">
         <div
