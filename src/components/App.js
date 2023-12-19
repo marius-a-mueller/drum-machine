@@ -28,7 +28,6 @@ class App extends Component {
       if (key === "Y") key = "Z";
       if (Object.keys(btns).includes(key.toUpperCase())) {
         let link = document.getElementById(key);
-        console.log(link);
         link.dispatchEvent(
           new MouseEvent("mousedown", {
             bubbles: true,
@@ -40,11 +39,17 @@ class App extends Component {
 
   handlePress(event, id) {
     this.setState({ display: id });
+    let audio = document.getElementById("audio-" + event.target.id);
+    audio.play();
   }
 
   render() {
     const drumpads = Array.from({ length: 9 }, (_, i) => (
-      <DrumPad id={Object.keys(btns)[i]} callback={this.handlePress} />
+      <DrumPad
+        id={Object.keys(btns)[i]}
+        audio={Object.values(btns)[i]}
+        callback={this.handlePress}
+      />
     ));
     return (
       <div className="w-screen h-screen flex justify-center items-center bg-violet-300">
