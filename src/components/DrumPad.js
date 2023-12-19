@@ -5,7 +5,8 @@ const DrumPad = ({ id, audio, callback }) => {
       id={id}
       onMouseDown={(e) => callback(e, id)}
     >
-      <audio id={"audio-" + id} src={audio} preload="auto"></audio>
+      {id}
+      <audio className="clip" id={id} src={audio} preload="auto"></audio>
     </div>
   );
 };

@@ -66,7 +66,7 @@ class App extends Component {
 
   handlePress(event, id) {
     this.setState({ display: btns[id].name });
-    let audio = document.getElementById("audio-" + event.target.id);
+    let audio = document.querySelector("audio[id=" + id + "]");
     audio.play();
     //new Audio(btns[id].audio).play();
   }
@@ -82,10 +82,10 @@ class App extends Component {
       <div className="w-screen h-screen flex justify-center items-center bg-violet-300">
         <div
           id="drum-machine"
-          className="flex flex-col justify-center items-center bg-violet-700 rounded-lg p-10 shadow-violet-900 shadow-lg"
+          className="grid grid-cols-3 grid-rows-4 bg-violet-700 rounded-lg p-10 shadow-violet-900 shadow-lg"
         >
           <Display text={this.state.display} />
-          <div className="grid grid-cols-3 grid-rows-3">{drumpads}</div>
+          {drumpads}
         </div>
       </div>
     );
